@@ -2,9 +2,6 @@
 # Date  : 07/21/2017
 # For Soil Water Index raw data download and time series analysis
 
-.libPaths()
-.libPaths("/home/yzhan/R/x86_64-pc-linux-gnu-library/3.4")
-
 require(R.utils)
 require(raster)
 require(spgrass6)
@@ -119,66 +116,4 @@ mapset="soil_yz5"
 system(command=paste("bash clip_rasters.sh -c /data2/gadm2 -i /data2/soil_water -m /data3/grassdata/lambert/",mapset," -r 10000",sep=""))
 
 
-#raster("/data2/soil_water/SWI10_Africa_2007_2017_SWI10_100_std.tif")
-
-
-### others
-#gisBase="/usr/lib/grass64"
-#gisDbase="/data3/grassdata"
-#map_set="yzhan_soil_water"
-#location of your GRASS installation
-#loc = initGRASS(gisBase=gisBase,home=tempdir(),gisDbase=gisDbase,
-#                location="lambert",mapset=map_set,override=T)
-#loc
-
-#import the country map as base map and set the region
-#r_in_gdal_map=substring(op2,24,nchar(op2)-4)
-#r_null_input=paste(r_in_gdal_map,"@",map_set,sep="")
-
-#j=1
-
-#read each tif file one by one into GRASS
-#for (j in 1:length(op2)){
-#  execGRASS("r.in.gdal", parameters=list(input=op2[j], output=r_in_gdal_map[j]))
-#  execGRASS("r.null", parameters=list(map=r_null_input[j],setnull="255"))
-#}
-
-#r_series_input=paste(r_null_input,collapse=",")
-
-#execGRASS("r.series", parameters=list(input=r_series_input,output=paste("SWI10_Africa_avg@",map_set,sep=""),method="average"))
-#execGRASS("r.series", parameters=list(input=r_series_input,output=paste("SWI10_Africa_std@",map_set,sep=""),method="stddev"))
-
-#execGRASS("r.out.gdal",parameters=list(input=paste("SWI10_Africa_avg@",map_set,sep=""),output="/data2/soil_water/SWI10_Africa_2007_2017_avg.tif"))
-#execGRASS("r.out.gdal",parameters=list(input=paste("SWI10_Africa_std@",map_set,sep=""),output="/data2/soil_water/SWI10_Africa_2007_2017_std.tif"))
-
-#unlink(paste(gisDbase,"/lambert/",map_set,sep=""),recursive=T)
-
-
-####
-
-raster("/data3/rstudio/soil_water/jen/SWI10_201706010000_GLOBE_ASCAT_V3.0.1/g2_BIOPAR_SWI10_201706010000_GLOBE_ASCAT_V3.0.1/20170601/g2_BIOPAR_SWI10_201706010000_GLOBE_ASCAT_V3.0.1_SWI10_SWI_001.tiff")
-
-raster("/data3/rstudio/soil_water/jen/SWI10_201706010000_GLOBE_ASCAT_V3.0.1/g2_BIOPAR_SWI10_201706010000_GLOBE_ASCAT_V3.0.1/20170601/g2_BIOPAR_SWI10_QL_201706010000_GLOBE_ASCAT_V3.0.1_SWI10_SWI_001.tiff")
-
-raster("/data2/soil_water/geo/g2_BIOPAR_SWI10_QL_200701010000_GLOBE_ASCAT_V3.0.1.tif")
-
-raster("/data2/soil_water/laea2/20070101/g2_BIOPAR_SWI10_200701010000_GLOBE_ASCAT_V3.0.1_SWI10_SWI_001_laea.tif")
-
-
-install.packages("h5")
-
-source("http://bioconductor.org/biocLite.R")
-biocLite("rhdf5")
-
-require("rhdf5")
-
-a="/data3/rstudio/soil_water/SWI10_200701010000_GLOBE_ASCAT_V3.0.1/g2_BIOPAR_SWI10_200701010000_GLOBE_ASCAT_V3.0.1.h5"
-h5ls(a)
-
-b=h5read(a,"/SWI10/SWI_001")
-c=raster(b)
-c
-writeRaster(c,filename="/data3/rstudio/test.tif")
-
-?h5ls
-?h5read
+##end
