@@ -24,7 +24,7 @@ tmp.dir = "./"
 list.fname = paste(tmp.dir, "observations.txt",sep="")
 
 username="yzhan888"
-pwd="1993912Zyn"
+pwd="xxxxxxxxx"
 extra = paste("--ftp-user=",username," --ftp-password=",pwd,sep="")
 
 #download the data list information
